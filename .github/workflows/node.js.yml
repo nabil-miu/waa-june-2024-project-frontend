@@ -24,11 +24,7 @@ jobs:
       with:
         node-version: 20.x
         cache: 'npm'
-    - name: Install dependencies
-      run: npm install    
-    - name: Generate build
-      run: npm run build
     - id: build-publish
       uses: bitovi/github-actions-react-to-github-pages@v1.2.4
       with:
-        path: build # change to your build folder
+        path: build
