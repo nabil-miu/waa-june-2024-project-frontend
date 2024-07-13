@@ -1,70 +1,54 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## University Connect
+ 
+**University Connect** is a dedicated social media platform designed exclusively for university students. The platform aims to foster a sense of community, enhance academic collaboration, and provide a space for students to connect, share, and grow together within their academic environment. University Connect will serve as a comprehensive digital hub, integrating features tailored to the unique needs of university students.
 
-In the project directory, you can run:
+####  Key Features
+--- 
+* Profile Creation
+	* Students can create detailed profiles showcasing their academic achievements, interests, and extracurricular activities.
+* Discussion Categories
+	* A wide range of discussion categories, including technology, health, education, hobbies, and more, allowing users to easily find topics of interest.
+* Threaded Discussions
+	* Structured and easy-to-follow threaded discussions enabling users to respond directly to specific posts and keep conversations organized.
+* Resource Library
+	* A centralized repository for academic resources, including lecture notes, study guides, and reference materials that can be shared and accessed by students.
+* Search and Filtering
+	* Advanced search and filtering options to help users quickly find relevant discussions and content.
+* Moderation Tools
+	* Robust moderation tools to ensure a respectful and constructive community environment, including reporting and blocking features.
+* Event Management
+	* The system will facilitate event management, enabling students to organize reunions, professional networking events, workshops, and seminars. Students can RSVP for events, and event organizers can track attendance.
+*  Student Directory
+	* The system will maintain a comprehensive directory of all registered students, searchable by year, major, and other relevant filters. This directory will enable students to find and connect with classmates.
+* Students Insights and Surveys
+	* Conducting surveys and gathering feedback from students will be made easy through the platform. This valuable data can help the institution make improvements and tailor services to better meet the needs of students.
+* Admin Dashboard
+	* Administrators have access to a comprehensive dashboard to manage user accounts, events, and overall system settings.
 
-### `npm start`
+#### Technical Details
+---
+* Use Java and Spring Boot framework for the backend project.
+* Use React framework for the frontend project.
+* Use n-tier software architecture model.
+* Populate your database with dummy data using `data.sql`.
+	* Prepare your dummy data for testing and presentation.
+* If necessary, change isolation levels.
+* If necessary, change Fetch mode.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Submission
+---
+* Submit a detailed project plan for your daily performance (day/task/time) and submit it with your code.
+* Project will be evaluated based on your code quality. It is possible that I will need to schedule meetings with some students about their source-code.
 
-### `npm test`
+#### Important Notes
+---
+* You are not allowed to share codes with your classmates. If detected, you will get NC.
+ 
+* Remember to respect the code honor submission policy. All written code must be original. Presenting something as one’s own work when it came from another source is plagiarism and is forbidden.
+    
+* Plagiarism is a very serious thing in all American academic institutions and is guarded against vigilantly by every professor.
+ 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
