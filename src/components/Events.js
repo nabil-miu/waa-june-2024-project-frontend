@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import eventService from "./eventService";
+import eventService from "../services/EventService";
 
-const EventComponent = () => {
+const Events = () => {
   const [events, setEvents] = useState([]);
   const [event, setEvent] = useState({});
   const [loading, setLoading] = useState(false);
@@ -69,4 +69,4 @@ const EventComponent = () => {
   );
 };
 
-export default EventComponent;
+export default Events;
