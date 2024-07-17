@@ -14,7 +14,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Dashboard/>}/>
                 <Route path="/users" element={<Users/>}/>
-                <Route path="/list-resource-category"  exact component={ListResourceCategories} />
+                <Route path="/list-resource-category" element={<ListResourceCategories/>}/>
             </Routes>
         </div>
     );
