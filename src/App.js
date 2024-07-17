@@ -3,6 +3,7 @@ import {Route, Routes} from "react-router";
 import React, {useEffect} from "react";
 import Dashboard from "./Dashboard";
 import Users from "./components/Users";
+import Surveys from "./components/Surveys";
 
 function App() {
     useEffect(() => {
@@ -13,6 +14,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Dashboard/>}/>
                 <Route path="/users" element={<Users/>}/>
+                <Route path="/surveys" element={<Surveys/>}/>
             </Routes>
         </div>
     );
