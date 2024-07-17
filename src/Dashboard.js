@@ -6,6 +6,7 @@ function Dashboard() {
         <div>
             <h1>Dashboard</h1>
             <Link to="/users"><h2>Users</h2></Link>
+            <Link to="/list-resource-category"><h2>Resource Category</h2></Link>
         </div>
     );
 }
