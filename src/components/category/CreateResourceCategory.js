@@ -6,7 +6,7 @@ import ResourceCategoryService from "../../services/ResourceCategoryService";
 const CreateResourceCategory = () => {
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
-    const [parent, setParent] = useState(1);
+    const [parent] = useState(1);
     const navigate = useNavigate();
   
     const handleSubmit = (event) => {
