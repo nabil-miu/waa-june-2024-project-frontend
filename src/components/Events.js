@@ -3,7 +3,21 @@ import eventService from "../services/EventService";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
-  const [event, setEvent] = useState({});
+  const [eventId, setEventId] = useState("");
+  const [selectedEvent, setSelectedEvent] = useState("");
+  const [newEvent, setNewEvent] = useState({
+    name: "",
+    description: "",
+    location: "",
+    localDateTime: "",
+  });
+  const [updateEvent, setUpdateEvent] = useState({
+    id: "",
+    name: "",
+    description: "",
+    location: "",
+    localDateTime: "",
+  });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -21,23 +35,62 @@ const Events = () => {
     fetchEvents();
   }, []);
 
-  const handleCreateEvent = async (newEvent) => {
+  const handleEventSelect = async (id) => {
+    setLoading(true);
+    eventService
+      .getEventById(id)
+      .then((response) => {
+        setSelectedEvent(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        setError(error);
+        setLoading(false);
+      });
+  };
+
+  const handleGetEventById = async () => {
+    try {
+      setLoading(true);
+      const response = await eventService.getEventById(eventId);
+      setSelectedEvent(response.data);
+    } catch (err) {
+      setError(err);
+    }
+    setLoading(false);
+  };
+
+  const handleCreateEvent = async (e) => {
+    e.preventDefault();
     setLoading(true);
     try {
       const response = await eventService.createEvent(newEvent);
       setEvents([...events, response.data]);
+      setNewEvent({
+        name: "",
+        description: "",
+        location: "",
+        localDateTime: "",
+      });
+      console.log(newEvent);
     } catch (err) {
       setError(err.message);
     }
     setLoading(false);
   };
 
-  const handleUpdateEvent = async (id, updatedEvent) => {
+  const handleUpdateEvent = async (e) => {
+    e.preventDefault();
     setLoading(true);
     try {
-      const response = await eventService.updateEvent(id, updatedEvent);
+      const response = await eventService.updateEvent(
+        updateEvent.id,
+        updateEvent
+      );
       setEvents(
-        events.map((event) => (event.id === id ? response.data : event))
+        events.map((event) =>
+          event.id === updateEvent.id ? response.data : event
+        )
       );
     } catch (err) {
       setError(err.message);
@@ -59,12 +112,106 @@ const Events = () => {
   // Render your component with events, loading, error, and event handlers
   return (
     <div>
+      <h1>Events</h1>
       {loading && <div>Loading...</div>}
       {error && <div>Error: {error}</div>}
-      {/* Render events */}
-      {/* Form to create a new event */}
-      {/* Form to update an existing event */}
-      {/* Button to delete an event */}
+      <ul>
+        {events.map((e) => (
+          <li key={e.id} onClick={() => handleEventSelect(e.id)}>
+            {e.name} <br />
+            <br />
+          </li>
+        ))}
+      </ul>
+      {selectedEvent && (
+        <div>
+          <h2>{selectedEvent.name}</h2>
+          <p>Description: {selectedEvent.description}</p>
+          <p>Location: {selectedEvent.location}</p>
+          <p>Date: {selectedEvent.localDateTime}</p>
+          <button onClick={() => handleDeleteEvent(selectedEvent.id)}>
+            Delete
+          </button>
+        </div>
+      )}
+
+      <h2>Create New Event</h2>
+      <form onSubmit={handleCreateEvent}>
+        <input
+          type="text"
+          placeholder="Event name"
+          value={newEvent.name}
+          onChange={(e) => setNewEvent({ ...newEvent, name: e.target.value })}
+        />
+        <input
+          type="text"
+          placeholder="Description"
+          value={newEvent.description}
+          onChange={(e) =>
+            setNewEvent({ ...newEvent, description: e.target.value })
+          }
+        />
+        <input
+          type="text"
+          placeholder="Location"
+          value={newEvent.location}
+          onChange={(e) =>
+            setNewEvent({ ...newEvent, location: e.target.value })
+          }
+        />
+        <input
+          type="datetime-local"
+          placeholder="Date & Time"
+          value={newEvent.localDateTime}
+          onChange={(e) =>
+            setNewEvent({ ...newEvent, localDateTime: e.target.value })
+          }
+        />
+        <button type="submit">Create</button>
+      </form>
+      {selectedEvent && (
+        <>
+          <h2>Update Event</h2>
+          <form onSubmit={handleUpdateEvent}>
+            <input
+              type="text"
+              placeholder="Event name"
+              value={updateEvent.name}
+              onChange={(e) =>
+                setUpdateEvent({ ...updateEvent, name: e.target.value })
+              }
+            />
+            <input
+              type="text"
+              placeholder="Description"
+              value={updateEvent.description}
+              onChange={(e) =>
+                setUpdateEvent({ ...updateEvent, description: e.target.value })
+              }
+            />
+            <input
+              type="text"
+              placeholder="Location"
+              value={updateEvent.location}
+              onChange={(e) =>
+                setUpdateEvent({ ...updateEvent, location: e.target.value })
+              }
+            />
+            <input
+              type="datetime-local"
+              placeholder="Date & Time"
+              value={updateEvent.localDateTime}
+              onChange={(e) =>
+                setUpdateEvent({
+                  ...updateEvent,
+                  localDateTime: e.target.value,
+                })
+              }
+            />
+            <button type="submit">Update</button>
+          </form>
+        </>
+      )}
     </div>
   );
 };
