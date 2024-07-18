@@ -1,23 +1,26 @@
 import axiosInstance from '../AxiosConfig';
+import axios from 'axios';
+
+const baseURL = 'http://localhost:8080/api/v1';
 
 const getResourceCategories = () => {
-  return axiosInstance.get('/categories/all');
+  return axios.get(baseURL+'/categories/all');
 };
 
 const getResourceCategory = (id) => {
-  return axiosInstance.get(`/categories/${id}`);
+  return axios.get(baseURL+`/categories/${id}`);
 };
 
 const createResourceCategory = (resourceCategory) => {
-  return axiosInstance.post('/categories', resourceCategory);
+  return axios.post(baseURL+'/categories', resourceCategory);
 };
 
 const updateResourceCategory = (id, resourceCategory) => {
-  return axiosInstance.put(`/categories/${id}`, resourceCategory);
+  return axios.put(baseURL+`/categories/${id}`, resourceCategory);
 };
 
 const deleteResourceCategory = (id) => {
-  return axiosInstance.delete(`/categories/${id}`);
+  return axios.delete(baseURL+`/categories/${id}`);
 };
 
 export default {
