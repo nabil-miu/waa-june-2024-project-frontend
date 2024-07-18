@@ -20,7 +20,7 @@ function App() {
                 <Route path="/" element={<Dashboard/>}/>
                 <Route path="/users" element={<Users/>}/>
                 <Route path="/admins" element={<Admins />} />
-                <Route path="/list-resource-category"  exact element={<ListResourceCategories/>} />
+                <Route path="/list-resource-category" element={<ListResourceCategories/>}/>
                 <Route path="/create-resource-category" element={<CreateResourceCategory/>} />
                 <Route path="/update-resource-category/:id" element={<UpdateResourceCategory/>} />
             </Routes>
