@@ -15,7 +15,7 @@ function Dashboard() {
         <h2>Admins</h2>
       </Link>
       <Link to="/resources">
-        <h2>"Resources"</h2>
+        <h2>Resources</h2>
       </Link>
     </div>
   );
