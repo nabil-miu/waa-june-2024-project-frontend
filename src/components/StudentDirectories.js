@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import studentDirectoryService from '../services/StudentDirectoryService';
 
 const StudentDirectories = () => {
@@ -12,13 +12,9 @@ const StudentDirectories = () => {
         text: ''
     });
     const [page, setPage] = useState(0);
-    const [pageSize, setPageSize] = useState(10);
+    const pageSize = 10;
 
-    useEffect(() => {
-        fetchDirectories();
-    }, [page, pageSize]);
-
-    const fetchDirectories = () => {
+    const fetchDirectories = useCallback(() => {
         setLoading(true);
         studentDirectoryService.getDirectoriesByPage(page, pageSize)
             .then(response => {
@@ -29,7 +25,11 @@ const StudentDirectories = () => {
                 setError(error);
                 setLoading(false);
             });
-    };
+    }, [page]);
+
+    useEffect(() => {
+        fetchDirectories();
+    }, [fetchDirectories]);
 
     const handleDirectorySelect = (id) => {
         setLoading(true);
@@ -74,7 +74,7 @@ const StudentDirectories = () => {
             <h1>Student Directories</h1>
             <form onSubmit={handleSearch}>
                 <input
-                    type="date"
+                    type="text"
                     placeholder="Academic Year"
                     value={searchParams.academicYear}
                     onChange={(e) => setSearchParams({ ...searchParams, academicYear: e.target.value })}
