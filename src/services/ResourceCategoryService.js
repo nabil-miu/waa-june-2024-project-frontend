@@ -1,7 +1,7 @@
 import axiosInstance from '../AxiosConfig';
 
 const getResourceCategories = () => {
-  return axiosInstance.get('/categories');
+  return axiosInstance.get('/categories/all');
 };
 
 const getResourceCategory = (id) => {
