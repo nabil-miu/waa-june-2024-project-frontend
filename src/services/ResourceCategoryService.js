@@ -1,29 +1,12 @@
 import axiosInstance from '../AxiosConfig';
 
-const getResourceCategories = () => {
-  return axiosInstance.get('/categories/all');
+
+const resourceCategories = {
+  getResourceCategories: () => axiosInstance.get('/categories/all'),
+  getResourceCategory: (id) => axiosInstance.get(`/categories/${id}`),
+  createResourceCategory: (resourceCategory) => axiosInstance.post('/categories', resourceCategory),
+  updateResourceCategory: (id, resourceCategory) => axiosInstance.put(`/categories/${id}`, resourceCategory),
+  deleteResourceCategory: (id) => axiosInstance.delete(`/categories/${id}`),
 };
 
-const getResourceCategory = (id) => {
-  return axiosInstance.get(`/categories/${id}`);
-};
-
-const createResourceCategory = (resourceCategory) => {
-  return axiosInstance.post('/categories', resourceCategory);
-};
-
-const updateResourceCategory = (id, resourceCategory) => {
-  return axiosInstance.put(`/categories/${id}`, resourceCategory);
-};
-
-const deleteResourceCategory = (id) => {
-  return axiosInstance.delete(`/categories/${id}`);
-};
-
-export default {
-  getResourceCategories,
-  getResourceCategory,
-  createResourceCategory,
-  updateResourceCategory,
-  deleteResourceCategory,
-};
+export default resourceCategories;

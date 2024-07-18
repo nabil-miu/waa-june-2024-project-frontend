@@ -9,8 +9,8 @@ const UpdatePost = () => {
   const [threadPostId, setThreadPostId] = useState(null); // New state to hold threadPost ID
   const [threadPostTitle, setThreadPostTitle] = useState('');
   const [threadPostCategoryId, setThreadPostCategoryId] = useState('');
-  const [threadPostUserId, setThreadPostUserId] = useState('');
-  const [parentPostId, setParentPostId] = useState('');
+//   const [threadPostUserId] = useState(1);
+//   const [parentPostId] = useState('');
   const [categories, setCategories] = useState([]);
   const navigate = useNavigate();
 

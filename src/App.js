@@ -13,6 +13,7 @@ import CreatePost from './components/posts/CreatePost';
 import UpdatePost from './components/posts/UpdatePost';
 
 
+
 function App() {
     useEffect(() => {
         document.title = "WAA545 - Project - React";
@@ -33,7 +34,6 @@ function App() {
             </Routes>
         </div>
     );
-
 }
 
 export default App;
