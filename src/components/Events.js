@@ -3,7 +3,6 @@ import eventService from "../services/EventService";
 
 const Events = () => {
   const [events, setEvents] = useState([]);
-  const [eventId, setEventId] = useState("");
   const [selectedEvent, setSelectedEvent] = useState("");
   const [newEvent, setNewEvent] = useState({
     name: "",
@@ -47,17 +46,6 @@ const Events = () => {
         setError(error);
         setLoading(false);
       });
-  };
-
-  const handleGetEventById = async () => {
-    try {
-      setLoading(true);
-      const response = await eventService.getEventById(eventId);
-      setSelectedEvent(response.data);
-    } catch (err) {
-      setError(err);
-    }
-    setLoading(false);
   };
 
   const handleCreateEvent = async (e) => {
