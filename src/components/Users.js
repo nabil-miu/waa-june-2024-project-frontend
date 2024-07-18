@@ -11,6 +11,7 @@ const Users = () => {
         lastName: '',
         email: '',
         phone: '',
+        deleted: false,
         role: 'USER'
     });
     const [updateUser, setUpdateUser] = useState({
@@ -49,8 +50,8 @@ const Users = () => {
     const handleUserCreate = async (event) => {
         event.preventDefault();
         try {
-            const response = await userService.createUser(newUser);
-            setUsers([...users, response.data]);
+            await userService.createUser(newUser);
+            setUsers([...users, newUser]);
             setNewUser({
                 firstName: '',
                 lastName: '',
@@ -75,7 +76,8 @@ const Users = () => {
 
     const handleUserDelete = (id) => {
         userService.deleteUser(id)
-            .then(() => {
+            .then((response) => {
+                console.log(response.headers);
                 setUsers(users.filter(u => u.id !== id));
             })
             .catch(error => setError(error));
@@ -89,6 +91,8 @@ const Users = () => {
             <h1>Users</h1>
             <ul>
                 {users.map(user => (
+                    // show user if only not deleted
+                    !user.deleted &&
                     <li key={user.id} onClick={() => handleUserSelect(user.id)}>
                         {user.firstName} {user.lastName}
                     </li>
@@ -108,25 +112,25 @@ const Users = () => {
                     type="text"
                     placeholder="First Name"
                     value={newUser.firstName}
-                    onChange={(e) => setNewUser({ ...newUser, firstName: e.target.value })}
+                    onChange={(e) => setNewUser({...newUser, firstName: e.target.value})}
                 />
                 <input
                     type="text"
                     placeholder="Last Name"
                     value={newUser.lastName}
-                    onChange={(e) => setNewUser({ ...newUser, lastName: e.target.value })}
+                    onChange={(e) => setNewUser({...newUser, lastName: e.target.value})}
                 />
                 <input
                     type="email"
                     placeholder="Email"
                     value={newUser.email}
-                    onChange={(e) => setNewUser({ ...newUser, email: e.target.value })}
+                    onChange={(e) => setNewUser({...newUser, email: e.target.value})}
                 />
                 <input
                     type="text"
                     placeholder="Phone"
                     value={newUser.phone}
-                    onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+                    onChange={(e) => setNewUser({...newUser, phone: e.target.value})}
                 />
                 <button type="submit">Create User</button>
             </form>
@@ -138,25 +142,25 @@ const Users = () => {
                             type="text"
                             placeholder="First Name"
                             value={updateUser.firstName}
-                            onChange={(e) => setUpdateUser({ ...updateUser, firstName: e.target.value })}
+                            onChange={(e) => setUpdateUser({...updateUser, firstName: e.target.value})}
                         />
                         <input
                             type="text"
                             placeholder="Last Name"
                             value={updateUser.lastName}
-                            onChange={(e) => setUpdateUser({ ...updateUser, lastName: e.target.value })}
+                            onChange={(e) => setUpdateUser({...updateUser, lastName: e.target.value})}
                         />
                         <input
                             type="email"
                             placeholder="Email"
                             value={updateUser.email}
-                            onChange={(e) => setUpdateUser({ ...updateUser, email: e.target.value })}
+                            onChange={(e) => setUpdateUser({...updateUser, email: e.target.value})}
                         />
                         <input
                             type="text"
                             placeholder="Phone"
                             value={updateUser.phone}
-                            onChange={(e) => setUpdateUser({ ...updateUser, phone: e.target.value })}
+                            onChange={(e) => setUpdateUser({...updateUser, phone: e.target.value})}
                         />
                         <button type="submit">Update User</button>
                     </form>

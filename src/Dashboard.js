@@ -11,6 +11,9 @@ function Dashboard() {
       <Link to="/events">
         <h2>Events</h2>
       </Link>
+      <Link to="/admins">
+        <h2>Admins</h2>
+      </Link>
     </div>
   );
 }
