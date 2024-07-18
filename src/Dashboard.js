@@ -7,6 +7,7 @@ function Dashboard() {
             <h1>Dashboard</h1>
             <Link to="/users"><h2>Users</h2></Link>
             <Link to="/admins"><h2>Admins</h2></Link>
+            <Link to="/studentdirectory"><h2>Student Directory</h2></Link>
         </div>
     );
 }
