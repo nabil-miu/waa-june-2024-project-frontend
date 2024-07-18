@@ -1,14 +1,12 @@
 import axiosInstance from '../AxiosConfig';
 
-const userService = {
-    getAllUsers: () => axiosInstance.get('/users/all'),
-    getUserById: (id) => axiosInstance.get(`/users/${id}`),
-    createUser: (user) => axiosInstance.post('/users', user),
-    updateUser: (id, user) => axiosInstance.put(`/users/${id}`, user),
-    deleteUser: (id) => axiosInstance.delete(`/users/${id}`),
-    reportUser: (userId, report) => axiosInstance.post(`/users/${userId}/report`, report),
-    blockUser: (blockedId, data) => axiosInstance.post(`/users/${blockedId}/block`, data),
-    unblockUser: (blockedId, data) => axiosInstance.post(`/users/${blockedId}/unblock`, data),
+const surveyService = {
+    createSurvey: (survey) => axiosInstance.post(`/surveys`, survey),
+    getAllSurveys: () => axiosInstance.get('/surveys/all'),
+    getSurveyById: (id) => axiosInstance.get(`/surveys/${id}`),
+    updateSurvey: (id, survey) => axiosInstance.put(`/surveys/${id}`, survey),
+    deleteSurvey: (id) => axiosInstance.delete(`/surveys/${id}`),
+    getActiveSurveys: () => axiosInstance.get('/surveys/active'),
 };
 
-export default userService;
+export default surveyService;

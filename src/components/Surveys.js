@@ -3,6 +3,7 @@ import surveyService from '../services/SurveyService';
 
 const Surveys = () => {
     const [surveys, setSurveys] = useState([]);
+    const [activeSurveys, setActiveSurveys] = useState([]);
     const [selectedSurvey, setSelectedSurvey] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -25,46 +26,55 @@ const Surveys = () => {
         surveyQuestions: [],
         surveyResponses: []
     });
-    const [newQuestion, setNewQuestion] = useState('');
-    const [newResponse, setNewResponse] = useState('');
-    const [selectedQuestion, setSelectedQuestion] = useState(null);
+    const [showActiveSurveys, setShowActiveSurveys] = useState(false);
 
     useEffect(() => {
+        const fetchSurveys = async () => {
+            try {
+                const response = await surveyService.getAllSurveys();
+                setSurveys(response.data);
+            } catch (error) {
+                setError(error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        const fetchActiveSurveys = async () => {
+            try {
+                const response = await surveyService.getActiveSurveys();
+                setActiveSurveys(response.data);
+            } catch (error) {
+                setError(error);
+            }
+        };
+
         fetchSurveys();
+        fetchActiveSurveys();
     }, []);
 
-    const fetchSurveys = () => {
-        surveyService.getAllSurveys()
-            .then(response => {
-                setSurveys(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
-    };
-
-    const handleSurveySelect = (id) => {
+    const handleSurveySelect = async (id) => {
         setLoading(true);
-        surveyService.getSurveyById(id)
-            .then(response => {
-                setSelectedSurvey(response.data);
-                setUpdateSurvey(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
+        try {
+            const response = await surveyService.getSurveyById(id);
+            setSelectedSurvey(response.data);
+            setUpdateSurvey(response.data);
+        } catch (error) {
+            setError(error);
+        } finally {
+            setLoading(false);
+        }
     };
 
     const handleSurveyCreate = async (event) => {
         event.preventDefault();
         try {
-            console.log(newSurvey)
             const response = await surveyService.createSurvey(newSurvey);
-           // setSurveys([...surveys, response.data]);
+            console.log(response.data);
+            setSurveys([...surveys, response.data]);
+            if (response.data.isActive) {
+                setActiveSurveys([...activeSurveys, response.data]);
+            }
             setNewSurvey({
                 title: '',
                 description: '',
@@ -85,72 +95,27 @@ const Surveys = () => {
         try {
             const response = await surveyService.updateSurvey(updateSurvey.id, updateSurvey);
             setSurveys(surveys.map(s => (s.id === updateSurvey.id ? response.data : s)));
+            if (updateSurvey.isActive) {
+                setActiveSurveys(activeSurveys.map(s => (s.id === updateSurvey.id ? response.data : s)));
+            }
             setSelectedSurvey(response.data);
         } catch (error) {
             setError(error);
-            console.error("Error updating survey:", error.response.data);
         }
     };
 
-    const handleSurveyDelete = (id) => {
-        surveyService.deleteSurvey(id)
-            .then(() => {
-                setSurveys(surveys.filter(s => s.id !== id));
-            })
-            .catch(error => setError(error));
+    const handleSurveyDelete = async (id) => {
+        try {
+            await surveyService.deleteSurvey(id);
+            setSurveys(surveys.filter(s => s.id !== id));
+            setActiveSurveys(activeSurveys.filter(s => s.id !== id));
+        } catch (error) {
+            setError(error);
+        }
     };
 
-    const handleFetchActiveSurveys = () => {
-        setLoading(true);
-        surveyService.activeSurvey()
-            .then(response => {
-                setSurveys(response.data);
-                setLoading(false);
-            })
-            .catch(error => {
-                setError(error);
-                setLoading(false);
-            });
-    };
-
-    const addQuestionToSurvey = () => {
-        const newQuestionObject = {
-            question: newQuestion,
-            questionType: 'TEXT', // Assuming a default type for simplicity
-            answers: [], // Initialize answers array
-            responses: [] // Initialize responses array
-        };
-        setNewSurvey(prevSurvey => ({
-            ...prevSurvey,
-            surveyQuestions: [...prevSurvey.surveyQuestions, newQuestionObject]
-        }));
-        setNewQuestion(''); // Clear input after adding question
-    };
-
-    const handleDeleteQuestion = (questionId) => {
-        setNewSurvey(prevSurvey => ({
-            ...prevSurvey,
-            surveyQuestions: prevSurvey.surveyQuestions.filter(q => q.id !== questionId)
-        }));
-    };
-
-    const addResponseToQuestion = () => {
-        const newResponseObject = {
-            answer: newResponse,
-            response: 'A', // Example response type, adjust as needed
-        };
-        setSelectedQuestion(prevQuestion => ({
-            ...prevQuestion,
-            responses: [...prevQuestion.responses, newResponseObject]
-        }));
-        setNewResponse(''); // Clear input after adding response
-    };
-
-    const handleDeleteResponse = (responseId) => {
-        setSelectedQuestion(prevQuestion => ({
-            ...prevQuestion,
-            responses: prevQuestion.responses.filter(r => r.id !== responseId)
-        }));
+    const toggleActiveSurveys = () => {
+        setShowActiveSurveys(!showActiveSurveys);
     };
 
     if (loading) return <div>Loading...</div>;
@@ -159,9 +124,11 @@ const Surveys = () => {
     return (
         <div>
             <h1>Surveys</h1>
-            <button onClick={handleFetchActiveSurveys}>Fetch Active Surveys</button>
+            <button onClick={toggleActiveSurveys}>
+                {showActiveSurveys ? 'Show All Surveys' : 'Show Active Surveys'}
+            </button>
             <ul>
-                {surveys.map(survey => (
+                {(showActiveSurveys ? activeSurveys : surveys).map(survey => (
                     <li key={survey.id} onClick={() => handleSurveySelect(survey.id)}>
                         {survey.title}
                     </li>
@@ -192,13 +159,13 @@ const Surveys = () => {
                     onChange={(e) => setNewSurvey({ ...newSurvey, description: e.target.value })}
                 />
                 <input
-                    type="date"
+                    type="text"
                     placeholder="Created At"
                     value={newSurvey.createdAt}
                     onChange={(e) => setNewSurvey({ ...newSurvey, createdAt: e.target.value })}
                 />
                 <input
-                    type="date"
+                    type="text"
                     placeholder="Expired At"
                     value={newSurvey.expiredAt}
                     onChange={(e) => setNewSurvey({ ...newSurvey, expiredAt: e.target.value })}
@@ -230,13 +197,13 @@ const Surveys = () => {
                             onChange={(e) => setUpdateSurvey({ ...updateSurvey, description: e.target.value })}
                         />
                         <input
-                            type="date"
+                            type="text"
                             placeholder="Created At"
                             value={updateSurvey.createdAt}
                             onChange={(e) => setUpdateSurvey({ ...updateSurvey, createdAt: e.target.value })}
                         />
                         <input
-                            type="date"
+                            type="text"
                             placeholder="Expired At"
                             value={updateSurvey.expiredAt}
                             onChange={(e) => setUpdateSurvey({ ...updateSurvey, expiredAt: e.target.value })}
@@ -251,51 +218,6 @@ const Surveys = () => {
                         </label>
                         <button type="submit">Update Survey</button>
                     </form>
-                </>
-            )}
-            {selectedSurvey && (
-                <>
-                    <h2>Add Question to Survey</h2>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <input
-                            type="text"
-                            placeholder="Question"
-                            value={newQuestion}
-                            onChange={(e) => setNewQuestion(e.target.value)}
-                        />
-                        <button onClick={addQuestionToSurvey}>Add Question</button>
-                    </form>
-                    {selectedSurvey.surveyQuestions.map(question => (
-                        <div key={question.id}>
-                            <h3>{question.question}</h3>
-                            <ul>
-                                {question.answers.map(answer => (
-                                    <li key={answer.id}>{answer.description}</li>
-                                ))}
-                            </ul>
-                            <button onClick={() => handleDeleteQuestion(question.id)}>Delete Question</button>
-                        </div>
-                    ))}
-                </>
-            )}
-            {selectedQuestion && (
-                <>
-                    <h2>Add Response to Question</h2>
-                    <form onSubmit={(e) => e.preventDefault()}>
-                        <input
-                            type="text"
-                            placeholder="Response"
-                            value={newResponse}
-                            onChange={(e) => setNewResponse(e.target.value)}
-                        />
-                        <button onClick={addResponseToQuestion}>Add Response</button>
-                    </form>
-                    {selectedQuestion.responses.map(response => (
-                        <div key={response.id}>
-                            <p>{response.answer}</p>
-                            <button onClick={() => handleDeleteResponse(response.id)}>Delete Response</button>
-                        </div>
-                    ))}
                 </>
             )}
         </div>
