@@ -3,11 +3,13 @@ import {Route, Routes} from "react-router";
 import React, {useEffect} from "react";
 import Dashboard from "./Dashboard";
 import Users from "./components/Users";
-
+import Admins from "./components/Admins";
 import ListResourceCategories from './components/category/ListResourceCategories';
 import CreateResourceCategory from './components/category/CreateResourceCategory';
 import UpdateResourceCategory from './components/category/UpdateResourceCategory';
-import Admins from "./components/Admins";
+import ListPosts from './components/posts/ListPosts';
+import CreatePost from './components/posts/CreatePost';
+import UpdatePost from './components/posts/UpdatePost';
 
 
 function App() {
@@ -23,6 +25,9 @@ function App() {
                 <Route path="/list-resource-category" element={<ListResourceCategories/>}/>
                 <Route path="/create-resource-category" element={<CreateResourceCategory/>} />
                 <Route path="/update-resource-category/:id" element={<UpdateResourceCategory/>} />
+                <Route path="/list-posts" element={<ListPosts/>} />
+                <Route path="/create-post" element={<CreatePost/>} />
+                <Route path="/update-post/:id" element={<UpdatePost/>} />
             </Routes>
         </div>
     );
