@@ -1,8 +1,9 @@
-import './App.css';
-import {Route, Routes} from "react-router";
-import React, {useEffect} from "react";
+import "./App.css";
+import { Route, Routes } from "react-router";
+import React, { useEffect } from "react";
 import Dashboard from "./Dashboard";
 import Users from "./components/Users";
+import Events from "./components/Events";
 import Admins from "./components/Admins";
 import ListResourceCategories from './components/category/ListResourceCategories';
 import CreateResourceCategory from './components/category/CreateResourceCategory';
@@ -21,6 +22,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Dashboard/>}/>
                 <Route path="/users" element={<Users/>}/>
+                <Route path="/events" element={<Events />} />
                 <Route path="/admins" element={<Admins />} />
                 <Route path="/list-resource-category" element={<ListResourceCategories/>}/>
                 <Route path="/create-resource-category" element={<CreateResourceCategory/>} />
@@ -31,6 +33,7 @@ function App() {
             </Routes>
         </div>
     );
+
 }
 
 export default App;
