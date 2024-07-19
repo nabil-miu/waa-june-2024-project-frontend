@@ -5,6 +5,7 @@ import Dashboard from "./Dashboard";
 import Users from "./components/Users";
 import Events from "./components/Events";
 import Admins from "./components/Admins";
+import Resources from "./components/Resources";
 import Surveys from "./components/Surveys";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/events" element={<Events />} />
         <Route path="/admins" element={<Admins />} />
+        <Route path="/resources" element={<Resources />} />
           <Route path="/surveys" element={<Surveys/>}/>
       </Routes>
     </div>

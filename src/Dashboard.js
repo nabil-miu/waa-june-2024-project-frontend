@@ -17,6 +17,9 @@ function Dashboard() {
         <Link to="/surveys">
             <h2>Surveys</h2>
         </Link>
+      <Link to="/resources">
+        <h2>Resources</h2>
+      </Link>
     </div>
   );
 }
