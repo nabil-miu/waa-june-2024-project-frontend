@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import surveyService from '../services/SurveyService';
-import Survey from '../css/Survey.css'
+import Survey from '../css/Survey.css';
+
 const Surveys = () => {
     const [surveys, setSurveys] = useState([]);
     const [activeSurveys, setActiveSurveys] = useState([]);
@@ -57,6 +58,7 @@ const Surveys = () => {
         setLoading(true);
         try {
             const response = await surveyService.getSurveyById(id);
+            console.log(Survey);
             setSelectedSurvey(response.data);
             setUpdateSurvey(response.data);
         } catch (error) {
