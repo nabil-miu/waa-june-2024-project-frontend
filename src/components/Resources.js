@@ -4,17 +4,15 @@ import resourceService from "../services/ResourceService";
 const Resources = () => {
   const [resources, setResources] = useState([]);
   const [selectedResource, setSelectedResource] = useState("");
-  const [newResource, setNewResource] = useState({
-    name: "",
-    description: "",
-  });
   const [updateResource, setUpdateResource] = useState({
     id: "",
     name: "",
     description: "",
   });
+  const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState("");
 
   useEffect(() => {
     const fetchResources = async () => {
@@ -55,17 +53,25 @@ const Resources = () => {
     setLoading(false);
   };
 
-  const handleCreateResource = async (e) => {
-    e.prResourceDefault();
+  const handleDownloadResource = async (name) => {
     setLoading(true);
     try {
-      const response = await resourceService.createResource(newResource);
-      setResources([...resources, response.data]);
-      setNewResource({
-        name: "",
-        description: "",
-      });
+      await resourceService.getFile(name);
     } catch (err) {
+      setError(err.message);
+    }
+    setLoading(false);
+  };
+
+  const handleCreateResource = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      setUploadStatus("Uploading...");
+      await resourceService.uploadFile(file);
+      setUploadStatus("Upload successful!");
+    } catch (err) {
+      setUploadStatus("Upload failed!");
       setError(err.message);
     }
     setLoading(false);
@@ -88,6 +94,10 @@ const Resources = () => {
       setError(err.message);
     }
     setLoading(false);
+  };
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
   };
 
   return (
@@ -113,36 +123,25 @@ const Resources = () => {
           <button onClick={() => handleDeleteResource(selectedResource.id)}>
             Delete
           </button>
+          <br />
+          <br />
+          <button onClick={() => handleDownloadResource(selectedResource.name)}>
+            Download
+          </button>
         </div>
       )}
 
       <h2>Create new Resource</h2>
       <form onSubmit={handleCreateResource}>
         <input
-          type="text"
-          placeholder="Resource name"
-          value={newResource.name}
-          onChange={(e) =>
-            setNewResource({ ...newResource, name: e.target.value })
-          }
-        />
-        <input
-          type="text"
-          placeholder="Description"
-          value={newResource.description}
-          onChange={(e) =>
-            setNewResource({ ...newResource, description: e.target.value })
-          }
-        />
-        {/* <input
           type="file"
           placeholder="Upload file"
-          value={newResource.url}
-          onChange={(e) =>
-            setNewResource({ ...newResource, url: e.target.value })
-          }
-        /> */}
-        <button type="submit">Create</button>
+          onChange={handleFileChange}
+        />
+        <button type="submit" disabled={!file}>
+          Upload
+        </button>
+        <p>{uploadStatus}</p>
       </form>
 
       {selectedResource && (
