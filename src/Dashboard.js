@@ -1,5 +1,5 @@
-import React from 'react';
-import {Link} from "react-router-dom";
+import React from "react";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
   return (
@@ -16,6 +16,9 @@ function Dashboard() {
       </Link>
         <Link to="/studentdirectory">
             <h2>Student Directory</h2>
+        </Link>
+        <Link to="/surveys">
+            <h2>Surveys</h2>
         </Link>
     </div>
   );
