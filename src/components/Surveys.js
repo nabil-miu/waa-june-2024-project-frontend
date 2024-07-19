@@ -11,7 +11,7 @@ const Surveys = () => {
     const [newSurvey, setNewSurvey] = useState({
         title: '',
         description: '',
-        createdAt: '',d
+        createdAt: '',
         expiredAt: '',
         isActive: false,
         surveyQuestions: [],
