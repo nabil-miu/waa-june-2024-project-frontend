@@ -8,7 +8,6 @@ import Admins from "./components/Admins";
 import StudentDirectories from "./components/StudentDirectories";
 import Surveys from "./components/Surveys";
 import Resources from "./components/Resources";
-import Surveys from "./components/Surveys";
 
 function App() {
     useEffect(() => {
