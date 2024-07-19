@@ -70,30 +70,75 @@ const StudentDirectories = () => {
     if (error) return <div>Error: {error.message}</div>;
 
     return (
-        <div>
+        // <div>
+        //     <h1>Student Directories</h1>
+        //     <form onSubmit={handleSearch}>
+        //         <input
+        //             type="text"
+        //             placeholder="Academic Year"
+        //             value={searchParams.academicYear}
+        //             onChange={(e) => setSearchParams({ ...searchParams, academicYear: e.target.value })}
+        //         />
+        //         <input
+        //             type="text"
+        //             placeholder="Major"
+        //             value={searchParams.major}
+        //             onChange={(e) => setSearchParams({ ...searchParams, major: e.target.value })}
+        //         />
+        //         <input
+        //             type="text"
+        //             placeholder="Search Text"
+        //             value={searchParams.text}
+        //             onChange={(e) => setSearchParams({ ...searchParams, text: e.target.value })}
+        //         />
+        //         <button type="submit">Search</button>
+        //     </form>
+        //     <ul>
+        //         {directories.map(directory => (
+        //             <li key={directory.id} onClick={() => handleDirectorySelect(directory.id)}>
+        //                 {directory.user.firstName} {directory.user.lastName}
+        //             </li>
+        //         ))}
+        //     </ul>
+        //     {selectedDirectory && (
+        //         <div>
+        //             <h2>{selectedDirectory.user.firstName} {selectedDirectory.user.lastName}</h2>
+        //             <p>Contact Information: {selectedDirectory.contactInformation}</p>
+        //             <p>Academic Year: {selectedDirectory.academicYear}</p>
+        //             <p>Major: {selectedDirectory.major}</p>
+        //             <button onClick={() => handleDirectoryDelete(selectedDirectory.id)}>Delete</button>
+        //         </div>
+        //     )}
+        //     <div>
+        //         <button onClick={() => setPage(page > 0 ? page - 1 : 0)}>Previous</button>
+        //         <span>Page {page + 1}</span>
+        //         <button onClick={() => setPage(page + 1)}>Next</button>
+        //     </div>
+        // </div>
+        <div className='student-directory-container'>
             <h1>Student Directories</h1>
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearch} className='search-form'>
                 <input
-                    type="text"
-                    placeholder="Academic Year"
+                    type='text'
+                    placeholder='Academic Year'
                     value={searchParams.academicYear}
-                    onChange={(e) => setSearchParams({ ...searchParams, academicYear: e.target.value })}
+                    onChange={(e) => setSearchParams({...searchParams, academicYear: e.target.value})}
                 />
                 <input
-                    type="text"
-                    placeholder="Major"
+                    type='text'
+                    placeholder='Major'
                     value={searchParams.major}
-                    onChange={(e) => setSearchParams({ ...searchParams, major: e.target.value })}
+                    onChange={(e) => setSearchParams({...searchParams, major: e.target.value})}
                 />
                 <input
-                    type="text"
-                    placeholder="Search Text"
+                    type='text'
+                    placeholder='Search Text'
                     value={searchParams.text}
-                    onChange={(e) => setSearchParams({ ...searchParams, text: e.target.value })}
+                    onChange={(e) => setSearchParams({...searchParams, text: e.target.value})}
                 />
-                <button type="submit">Search</button>
+                <button type='submit'>Search</button>
             </form>
-            <ul>
+            <ul className='directory-list'>
                 {directories.map(directory => (
                     <li key={directory.id} onClick={() => handleDirectorySelect(directory.id)}>
                         {directory.user.firstName} {directory.user.lastName}
@@ -101,7 +146,7 @@ const StudentDirectories = () => {
                 ))}
             </ul>
             {selectedDirectory && (
-                <div>
+                <div className='directory-details'>
                     <h2>{selectedDirectory.user.firstName} {selectedDirectory.user.lastName}</h2>
                     <p>Contact Information: {selectedDirectory.contactInformation}</p>
                     <p>Academic Year: {selectedDirectory.academicYear}</p>
@@ -109,12 +154,13 @@ const StudentDirectories = () => {
                     <button onClick={() => handleDirectoryDelete(selectedDirectory.id)}>Delete</button>
                 </div>
             )}
-            <div>
+            <div className='pagination-controls'>
                 <button onClick={() => setPage(page > 0 ? page - 1 : 0)}>Previous</button>
                 <span>Page {page + 1}</span>
                 <button onClick={() => setPage(page + 1)}>Next</button>
             </div>
         </div>
+
     );
 };
 
