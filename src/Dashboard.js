@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import {Link} from "react-router-dom";
 
 function Dashboard() {
   return (
@@ -14,6 +14,9 @@ function Dashboard() {
       <Link to="/admins">
         <h2>Admins</h2>
       </Link>
+        <Link to="/surveys">
+            <h2>Surveys</h2>
+        </Link>
       <Link to="/resources">
         <h2>Resources</h2>
       </Link>
