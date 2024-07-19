@@ -7,6 +7,7 @@ import Events from "./components/Events";
 import Admins from "./components/Admins";
 import StudentDirectories from "./components/StudentDirectories";
 import Surveys from "./components/Surveys";
+import Resources from "./components/Resources";
 
 function App() {
   useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/admins" element={<Admins />} />
           <Route path="/surveys" element={<Surveys/>}/>
           <Route path="/studentdirectory" element={<StudentDirectories/>} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </div>
   );
