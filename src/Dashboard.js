@@ -14,6 +14,12 @@ function Dashboard() {
       <Link to="/admins">
         <h2>Admins</h2>
       </Link>
+        <Link to="/studentdirectory">
+            <h2>Student Directory</h2>
+        </Link>
+        <Link to="/surveys">
+            <h2>Surveys</h2>
+        </Link>
         <Link to="/surveys">
             <h2>Surveys</h2>
         </Link>

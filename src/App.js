@@ -5,8 +5,9 @@ import Dashboard from "./Dashboard";
 import Users from "./components/Users";
 import Events from "./components/Events";
 import Admins from "./components/Admins";
-import Resources from "./components/Resources";
+import StudentDirectories from "./components/StudentDirectories";
 import Surveys from "./components/Surveys";
+import Resources from "./components/Resources";
 
 function App() {
     useEffect(() => {
@@ -20,8 +21,9 @@ function App() {
         <Route path="/users" element={<Users />} />
         <Route path="/events" element={<Events />} />
         <Route path="/admins" element={<Admins />} />
-        <Route path="/resources" element={<Resources />} />
           <Route path="/surveys" element={<Surveys/>}/>
+          <Route path="/studentdirectory" element={<StudentDirectories/>} />
+        <Route path="/resources" element={<Resources />} />
       </Routes>
     </div>
   );
